@@ -15,6 +15,7 @@ function draw() {
     particles.forEach((p, index) => {
         p.update();
         p.draw();
+        p.checkParticles(particles.slice(index))
     });
 }
 
@@ -50,5 +51,22 @@ class Particle {
         if (this.pos.y < 0 || this.pos.y > height) {
             this.vel.y *= -1;
         }
+    }
+
+    // Connect particles
+    checkParticles(particles) {
+        particles.forEach(particle => {
+            const d = dist(
+                this.pos.x,
+                this.pos.y,
+                particle.pos.x,
+                particle.pos.y
+            );
+
+            if (d < 120) {
+                stroke('rgba(255,255,255,0.1)');
+                line(this.pos.x, this.pos.y, particle.pos.x, particle.pos.y);
+            }
+        });
     }
 }
