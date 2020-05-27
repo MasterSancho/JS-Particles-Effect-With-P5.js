@@ -1,15 +1,21 @@
-let p;
+const particles = [];
 
 function setup() {
     createCanvas(window.innerWidth, window.innerWidth);
 
-    p = new Particle();
+    const particlesLength = Math.floor(window.innerWidth / 10);
+
+    for (let i = 0; i < particlesLength; i++) {
+        particles.push(new Particle());
+    }
 }
 
 function draw() {
     background(55, 100, 144);
-    p.update();
-    p.draw();
+    particles.forEach((p, index) => {
+        p.update();
+        p.draw();
+    });
 }
 
 class Particle {
@@ -25,7 +31,7 @@ class Particle {
     // Update movement by adding velocity
     update() {
         this.pos.add(this.vel);
-        this.edges()
+        this.edges();
     }
 
     // Draw single particle
